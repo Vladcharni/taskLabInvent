@@ -68,6 +68,11 @@
   animation: refreshicon infinite 5s linear;
 }
 
+span{
+  color: red;
+  font-size: 18px;
+}
+
 @keyframes refreshicon {
   from {
     transform: rotate(0deg);

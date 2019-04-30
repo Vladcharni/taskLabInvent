@@ -48,12 +48,12 @@ export class FormLeft extends React.Component{
 
           <div className="">
             <div className="col-12 text-right m-2">
-              <label className="mr-3">IP address: </label>
-              <input type="text" className="form-control col-5" id="ipSetting1" value={this.props.initInput.ipAddress.settingsIpAddress.ipaddress} ref={el => this.inputTextIpAddress = el} onChange={this.onChange} required disabled/>
+              <label className="mr-3">IP address: <span>*</span></label>
+              <input type="text" className="form-control col-5" id="ipSetting1" value={this.props.initInput.ipAddress.settingsIpAddress.ipaddress} ref={el => this.inputTextIpAddress = el} onChange={this.onChange} disabled/>
             </div>
             <div className="col-12 text-right m-2">
-              <label className="mr-3">Subnet Mask: </label>
-              <input type="text" className="form-control col-5" id="ipSetting2" value={this.props.initInput.ipAddress.settingsIpAddress.subnetMask} ref={el => this.inputTextSubnetMask = el} onChange={this.onChange} required disabled/>
+              <label className="mr-3">Subnet Mask: <span>*</span></label>
+              <input type="text" className="form-control col-5" id="ipSetting2" value={this.props.initInput.ipAddress.settingsIpAddress.subnetMask} ref={el => this.inputTextSubnetMask = el} onChange={this.onChange} disabled/>
             </div>
             <div className="col-12 text-right m-2">
               <label className="mr-3">Default Gateway: </label>
@@ -74,7 +74,7 @@ export class FormLeft extends React.Component{
 
           <div className="">
             <div className="col-12 text-right m-2">
-              <label className="mr-3">Preferred DNS server: </label>
+              <label className="mr-3">Preferred DNS server: <span>*</span></label>
               <input type="text" className="form-control col-5" id="serverDNSSetting1" value={this.props.initInput.serverDNS.settingsDNS.prefferredDNS} ref={el => this.inputPreferredDNSServer = el} onChange={this.onChange} disabled required />
             </div>
             <div className="col-12 text-right m-2">

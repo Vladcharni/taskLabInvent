@@ -263,7 +263,7 @@ export class Form extends React.Component{
   render(){
     return (
       <div className="cont Form">
-        <form className="">
+        <form  className="">
             <div className="row">
               <FormLeft initInput={this.state.ethernet_settings} onChange={this.onChangeEthernetSetting} onClickRadioUseIPAddress={this.onClickRadioUseIPAddress} onClickRadioDNSServer={this.onClickRadioDNSServer}/>
               <FormRight />

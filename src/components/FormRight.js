@@ -107,7 +107,7 @@ export class FormRight extends React.Component{
         </div>
 
         <div className="text-right form-group">
-          <label>Wireless Network Name: </label>
+          <label>Wireless Network Name: <span>*</span></label>
           <select className="custom-select col-5 ml-3 mr-3" placeholder="Please select" ref={el => this.wifiNetworkName = el} required disabled>
             <option value="">Please select</option>
             <option value="1">SSID 1</option>
@@ -124,7 +124,7 @@ export class FormRight extends React.Component{
           <div className="invalid-feedback">invalid</div>
         </div>
         <div className="col-12 text-right m-2">
-          <label className="mr-3">Security Key: </label>
+          <label className="mr-3">Security Key: <span>*</span></label>
           <input type="text" className="form-control col-5" ref={el => this.inputSecurityKey = el} required disabled/>
         </div>
 
@@ -141,11 +141,11 @@ export class FormRight extends React.Component{
 
           <div className="">
             <div className="col-12 text-right m-2">
-              <label className="mr-3">IP address: </label>
+              <label className="mr-3">IP address: <span>*</span></label>
               <input type="text" className="form-control col-5" ref={el => this.inputTextIpAddress = el} required disabled/>
             </div>
             <div className="col-12 text-right m-2">
-              <label className="mr-3">Subnet Mask: </label>
+              <label className="mr-3">Subnet Mask: <span>*</span></label>
               <input type="text" className="form-control col-5" ref={el => this.inputTextSubnetMask = el} required disabled/>
             </div>
             <div className="col-12 text-right m-2">
@@ -167,7 +167,7 @@ export class FormRight extends React.Component{
 
           <div className="">
             <div className="col-12 text-right m-2">
-              <label className="mr-3">Preferred DNS server: </label>
+              <label className="mr-3">Preferred DNS server: <span>*</span></label>
               <input type="text" className="form-control col-5" ref={el => this.inputPreferredDNSServer = el} disabled/>
             </div>
             <div className="col-12 text-right m-2">
