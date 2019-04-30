@@ -23,6 +23,61 @@
   color: #61dafb;
 }
 
+.Form{
+  background-color: #fff;
+  color: #000;
+  padding: 0 15px 0;
+  font-size: 16px;
+  border-radius: 3px;
+  font-weight: 400;
+}
+
+.title{
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.radio{
+  margin-right:5px;
+}
+
+.cont{
+  width: 1330px;
+}
+
+ button{
+   border-radius: 50%;
+ }
+
+.btn-bottom{
+  margin: 15px 0;
+  margin-left: 15px;
+  width: 130px;
+  border-radius: 25px;
+}
+
+.form-control{
+  display: inline-block;
+}
+
+.refresh:hover{
+  cursor:pointer;
+}
+.refresh{
+  animation: refreshicon infinite 5s linear;
+}
+
+
+@keyframes refreshicon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
