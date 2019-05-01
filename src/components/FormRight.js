@@ -199,6 +199,7 @@ export class FormRight extends React.Component{
   componentDidUpdate(){
 
     if(!this.props.initInput.enablewifi){
+      this.onActiveSettingWifi("default_wifi");
       console.log("goose");
     }
   }
