@@ -9,6 +9,7 @@ export class FormRight extends React.Component{
     this.enableSecurityKey = this.enableSecurityKey.bind(this);
     this.onClickIpAddress = this.onClickIpAddress.bind(this);
     this.onClickActiveDNSServer = this.onClickActiveDNSServer.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   onActiveSettingWifi(e){
@@ -88,7 +89,24 @@ export class FormRight extends React.Component{
     }
   }
 
+  onChange(e){
+    this.props.onChange(e);
+  }
+
   componentDidMount(){
+
+    let listRefsFormRight = {
+      formRightwifiNetworkName: this.wifiNetworkName,
+      formRightinputSecurityKey:this.inputSecurityKey,
+      formRightinputTextIpAddress:this.inputTextIpAddress,
+      formRightinputTextSubnetMask:this.inputTextSubnetMask,
+      formRightinputTextDefaultGateaway:this.inputTextDefaultGateaway,
+      formRightinputPreferredDNSServer:this.inputPreferredDNSServer,
+      formRightinputAlternativeDNSServer:this.inputAlternativeDNSServer
+    }
+
+    this.props.onLoadRefsFormRight(listRefsFormRight);
+
     this.enableWifiSecurity.disabled = true;
     this.visibleRadioIpAddressWifiDefault.disabled = true;
     this.visibleRadioIpAddressWifiUse.disabled = true;
@@ -108,7 +126,7 @@ export class FormRight extends React.Component{
 
         <div className="text-right form-group">
           <label>Wireless Network Name: <span>*</span></label>
-          <select className="custom-select col-5 ml-3 mr-3" placeholder="Please select" ref={el => this.wifiNetworkName = el} required disabled>
+          <select className="custom-select col-5 ml-3 mr-3" id="networkname" ref={el => this.wifiNetworkName = el} onChange={this.onChange} required disabled>
             <option value="">Please select</option>
             <option value="1">SSID 1</option>
             <option value="2">SSID 2</option>
@@ -119,13 +137,13 @@ export class FormRight extends React.Component{
 
 
         <div className="custom-control custom-checkbox mb-3">
-          <input type="checkbox" className="custom-control-input" id="customControlValidation2" ref={el => this.enableWifiSecurity = el} onClick={this.enableSecurityKey}/>
+          <input type="checkbox" className="custom-control-input" id="customControlValidation2"  ref={el => this.enableWifiSecurity = el} onClick={this.enableSecurityKey}/>
           <label className="custom-control-label" for="customControlValidation2">Enable Wireless Security:</label>
           <div className="invalid-feedback">invalid</div>
         </div>
         <div className="col-12 text-right m-2">
           <label className="mr-3">Security Key: <span>*</span></label>
-          <input type="text" className="form-control col-5" ref={el => this.inputSecurityKey = el} required disabled/>
+          <input type="text" className="form-control col-5" id="securitykey" value={this.props.initInput.settings.enableSecurity.inputSecurityKey} ref={el => this.inputSecurityKey = el} onChange={this.onChange} disabled/>
         </div>
 
 
@@ -142,15 +160,15 @@ export class FormRight extends React.Component{
           <div className="">
             <div className="col-12 text-right m-2">
               <label className="mr-3">IP address: <span>*</span></label>
-              <input type="text" className="form-control col-5" ref={el => this.inputTextIpAddress = el} required disabled/>
+              <input type="text" className="form-control col-5" id="ipSetting1" value={this.props.initInput.settings.wifiIpAddress.settingsIpAddress.ipaddress} ref={el => this.inputTextIpAddress = el} onChange={this.onChange} required disabled/>
             </div>
             <div className="col-12 text-right m-2">
               <label className="mr-3">Subnet Mask: <span>*</span></label>
-              <input type="text" className="form-control col-5" ref={el => this.inputTextSubnetMask = el} required disabled/>
+              <input type="text" className="form-control col-5" id="ipSetting2" value={this.props.initInput.settings.wifiIpAddress.settingsIpAddress.subnetMask} ref={el => this.inputTextSubnetMask = el} onChange={this.onChange} required disabled/>
             </div>
             <div className="col-12 text-right m-2">
               <label className="mr-3">Default Gateway: </label>
-              <input type="text" className="form-control col-5" ref={el => this.inputTextDefaultGateaway = el} required disabled/>
+              <input type="text" className="form-control col-5" id="ipSetting3" value={this.props.initInput.settings.wifiIpAddress.settingsIpAddress.defaultGateway} ref={el => this.inputTextDefaultGateaway = el} onChange={this.onChange} required disabled/>
             </div>
           </div>
         </div>
@@ -168,11 +186,11 @@ export class FormRight extends React.Component{
           <div className="">
             <div className="col-12 text-right m-2">
               <label className="mr-3">Preferred DNS server: <span>*</span></label>
-              <input type="text" className="form-control col-5" ref={el => this.inputPreferredDNSServer = el} disabled/>
+              <input type="text" className="form-control col-5" id="serverDNSSetting1" value={this.props.initInput.settings.wifiDNSServer.settingsDNS.prefferredDNS} ref={el => this.inputPreferredDNSServer = el} onChange={this.onChange} disabled/>
             </div>
             <div className="col-12 text-right m-2">
               <label className="mr-3">Alternative DNS server: </label>
-              <input type="text" className="form-control col-5" ref={el => this.inputAlternativeDNSServer = el} disabled/>
+              <input type="text" className="form-control col-5" id="serverDNSSetting2" value={this.props.initInput.settings.wifiDNSServer.settingsDNS.alternativedDNS} ref={el => this.inputAlternativeDNSServer = el} onChange={this.onChange} disabled/>
             </div>
           </div>
         </div>

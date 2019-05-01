@@ -50,12 +50,13 @@ export class Form extends React.Component{
         }
       }
     }
-
     this.onClickRadioUseIPAddress = this.onClickRadioUseIPAddress.bind(this);
     this.onClickRadioDNSServer = this.onClickRadioDNSServer.bind(this);
     this.onChangeEthernetSetting = this.onChangeEthernetSetting.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onCancel = this.onCancel.bind(this);
+    this.onChangeWirelessSetting = this.onChangeWirelessSetting.bind(this);
+    this.onLoadRefsFormRight = this.onLoadRefsFormRight.bind(this);
   }
 
   onClickRadioUseIPAddress(e,input1,input2,input3){
@@ -205,11 +206,240 @@ export class Form extends React.Component{
     }
   }
 
+  onChangeWirelessSetting(e){
+    let state_networkName = this.state.wireless_settings.settings.networkName;
+    let state_inputSecurityKey = this.state.wireless_settings.settings.enableSecurity.inputSecurityKey;
+    let state_ipaddress = this.state.wireless_settings.settings.wifiIpAddress.settingsIpAddress.ipaddress;
+    let state_subnetMask = this.state.wireless_settings.settings.wifiIpAddress.settingsIpAddress.subnetMask;
+    let state_defaultGateway = this.state.wireless_settings.settings.wifiIpAddress.settingsIpAddress.defaultGateway;
+    let state_prefferredDNS = this.state.wireless_settings.settings.wifiDNSServer.settingsDNS.prefferredDNS;
+    let state_alternativedDNS = this.state.wireless_settings.settings.wifiDNSServer.settingsDNS.alternativedDNS;
+
+
+    if(e.target.id == 'networkname' && e.target.value != ''){
+      this.setState({
+        wireless_settings:{
+          enablewifi: false,
+          settings:{
+            networkName: e.target.value,
+            enableSecurity:{
+              checkboxEnableSecurity: false,
+              inputSecurityKey: state_inputSecurityKey
+            },
+            wifiIpAddress:{
+              default: true,
+              settingsIpAddress:{
+                ipaddress: state_ipaddress,
+                subnetMask: state_subnetMask,
+                defaultGateway: state_defaultGateway
+              }
+            },
+            wifiDNSServer:{
+              default: true,
+              settingsDNS:{
+                prefferredDNS: state_prefferredDNS,
+                alternativedDNS: state_alternativedDNS
+              }
+            }
+          }
+        }
+      })
+    } else if(e.target.id == 'securitykey'){
+      this.setState({
+        wireless_settings:{
+          enablewifi: false,
+          settings:{
+            networkName: state_networkName,
+            enableSecurity:{
+              checkboxEnableSecurity: false,
+              inputSecurityKey: e.target.value
+            },
+            wifiIpAddress:{
+              default: true,
+              settingsIpAddress:{
+                ipaddress: state_ipaddress,
+                subnetMask: state_subnetMask,
+                defaultGateway: state_defaultGateway
+              }
+            },
+            wifiDNSServer:{
+              default: true,
+              settingsDNS:{
+                prefferredDNS: state_prefferredDNS,
+                alternativedDNS: state_alternativedDNS
+              }
+            }
+          }
+        }
+      })
+    } else if(e.target.id.slice(0,-1) == "ipSetting"){
+      switch(e.target.id){
+        case 'ipSetting1':
+          this.setState({
+            wireless_settings:{
+              enablewifi: false,
+              settings:{
+                networkName: state_networkName,
+                enableSecurity:{
+                  checkboxEnableSecurity: false,
+                  inputSecurityKey: state_inputSecurityKey
+                },
+                wifiIpAddress:{
+                  default: true,
+                  settingsIpAddress:{
+                    ipaddress: e.target.value,
+                    subnetMask: state_subnetMask,
+                    defaultGateway: state_defaultGateway
+                  }
+                },
+                wifiDNSServer:{
+                  default: true,
+                  settingsDNS:{
+                    prefferredDNS: state_prefferredDNS,
+                    alternativedDNS: state_alternativedDNS
+                  }
+                }
+              }
+            }
+          })
+          break;
+        case 'ipSetting2':
+          this.setState({
+            wireless_settings:{
+              enablewifi: false,
+              settings:{
+                networkName: state_networkName,
+                enableSecurity:{
+                  checkboxEnableSecurity: false,
+                  inputSecurityKey: state_inputSecurityKey
+                },
+                wifiIpAddress:{
+                  default: true,
+                  settingsIpAddress:{
+                    ipaddress: state_ipaddress,
+                    subnetMask: e.target.value,
+                    defaultGateway: state_defaultGateway
+                  }
+                },
+                wifiDNSServer:{
+                  default: true,
+                  settingsDNS:{
+                    prefferredDNS: state_prefferredDNS,
+                    alternativedDNS: state_alternativedDNS
+                  }
+                }
+              }
+            }
+          })
+          break;
+        case 'ipSetting3':
+          this.setState({
+            wireless_settings:{
+              enablewifi: false,
+              settings:{
+                networkName: state_networkName,
+                enableSecurity:{
+                  checkboxEnableSecurity: false,
+                  inputSecurityKey: state_inputSecurityKey
+                },
+                wifiIpAddress:{
+                  default: true,
+                  settingsIpAddress:{
+                    ipaddress: state_ipaddress,
+                    subnetMask: state_subnetMask,
+                    defaultGateway: e.target.value
+                  }
+                },
+                wifiDNSServer:{
+                  default: true,
+                  settingsDNS:{
+                    prefferredDNS: state_prefferredDNS,
+                    alternativedDNS: state_alternativedDNS
+                  }
+                }
+              }
+            }
+          })
+          break;
+        default:
+          break;
+      }
+    }else if(e.target.id.slice(0,-1) == "serverDNSSetting"){
+      switch(e.target.id){
+        case "serverDNSSetting1":
+          this.setState({
+            wireless_settings:{
+              enablewifi: false,
+              settings:{
+                networkName: state_networkName,
+                enableSecurity:{
+                  checkboxEnableSecurity: false,
+                  inputSecurityKey: state_inputSecurityKey
+                },
+                wifiIpAddress:{
+                  default: true,
+                  settingsIpAddress:{
+                    ipaddress: state_ipaddress,
+                    subnetMask: state_subnetMask,
+                    defaultGateway: state_defaultGateway
+                  }
+                },
+                wifiDNSServer:{
+                  default: true,
+                  settingsDNS:{
+                    prefferredDNS: e.target.value,
+                    alternativedDNS: state_alternativedDNS
+                  }
+                }
+              }
+            }
+          })
+          break;
+        case "serverDNSSetting2":
+          this.setState({
+            wireless_settings:{
+              enablewifi: false,
+              settings:{
+                networkName: state_networkName,
+                enableSecurity:{
+                  checkboxEnableSecurity: false,
+                  inputSecurityKey: state_inputSecurityKey
+                },
+                wifiIpAddress:{
+                  default: true,
+                  settingsIpAddress:{
+                    ipaddress: state_ipaddress,
+                    subnetMask: state_subnetMask,
+                    defaultGateway: state_defaultGateway
+                  }
+                },
+                wifiDNSServer:{
+                  default: true,
+                  settingsDNS:{
+                    prefferredDNS: state_prefferredDNS,
+                    alternativedDNS: e.target.value
+                  }
+                }
+              }
+            }
+          })
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  onLoadRefsFormRight(obj){
+    console.log(obj)
+  }
+
   componentDidUpdate(){
     console.log(this.state);
   }
 
   onSave(){
+    console.log()
     console.log(this.state)
   }
 
@@ -263,14 +493,14 @@ export class Form extends React.Component{
   render(){
     return (
       <div className="cont Form">
-        <form  className="">
+        <form className="">
             <div className="row">
               <FormLeft initInput={this.state.ethernet_settings} onChange={this.onChangeEthernetSetting} onClickRadioUseIPAddress={this.onClickRadioUseIPAddress} onClickRadioDNSServer={this.onClickRadioDNSServer}/>
-              <FormRight />
+              <FormRight initInput={this.state.wireless_settings}  onChange={this.onChangeWirelessSetting} onLoadRefsFormRight={this.onLoadRefsFormRight}/>
             </div>
 
             <div className="row">
-              <button type="button" className="btn btn-outline-primary btn-bottom" onClick={this.onSave}>Save</button>
+              <button type="button" className="btn btn-outline-primary btn-bottom">Save</button>
               <button type="button" className="btn btn-outline-primary btn-bottom" onClick={this.onCancel}>Cancel</button>
             </div>
         </form>
