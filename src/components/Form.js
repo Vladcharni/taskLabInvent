@@ -57,6 +57,7 @@ export class Form extends React.Component{
     this.onCancel = this.onCancel.bind(this);
     this.onChangeWirelessSetting = this.onChangeWirelessSetting.bind(this);
     this.onLoadRefsFormRight = this.onLoadRefsFormRight.bind(this);
+    this.onUpdateState = this.onUpdateState.bind(this);
   }
 
   onClickRadioUseIPAddress(e,input1,input2,input3){
@@ -449,6 +450,49 @@ export class Form extends React.Component{
     }
   }
 
+  onUpdateState(setting){
+      let state_enablewifi = setting == "enablewifi_active" ? true : false;
+      let state_checkboxEnableSecurity = this.state.wireless_settings.settings.enableSecurity.checkboxEnableSecurity;
+      let state_defaultIPAddress = this.state.wireless_settings.settings.wifiIpAddress.default;
+      let state_state_defaultDNS = this.state.wireless_settings.settings.wifiDNSServer.default;
+
+      let state_networkName = this.state.wireless_settings.settings.networkName;
+      let state_inputSecurityKey = this.state.wireless_settings.settings.enableSecurity.inputSecurityKey;
+      let state_ipaddress = this.state.wireless_settings.settings.wifiIpAddress.settingsIpAddress.ipaddress;
+      let state_subnetMask = this.state.wireless_settings.settings.wifiIpAddress.settingsIpAddress.subnetMask;
+      let state_defaultGateway = this.state.wireless_settings.settings.wifiIpAddress.settingsIpAddress.defaultGateway;
+      let state_prefferredDNS = this.state.wireless_settings.settings.wifiDNSServer.settingsDNS.prefferredDNS;
+      let state_alternativedDNS = this.state.wireless_settings.settings.wifiDNSServer.settingsDNS.alternativedDNS;
+
+      this.setState({
+        wireless_settings:{
+          enablewifi: state_enablewifi,
+          settings:{
+            networkName: state_networkName,
+            enableSecurity:{
+              checkboxEnableSecurity: state_checkboxEnableSecurity,
+              inputSecurityKey: state_inputSecurityKey
+            },
+            wifiIpAddress:{
+              default: state_defaultIPAddress,
+              settingsIpAddress:{
+                ipaddress: state_ipaddress,
+                subnetMask: state_subnetMask,
+                defaultGateway: state_defaultGateway
+              }
+            },
+            wifiDNSServer:{
+              default: state_state_defaultDNS,
+              settingsDNS:{
+                prefferredDNS: state_prefferredDNS,
+                alternativedDNS: state_alternativedDNS
+              }
+            }
+          }
+        }
+      })
+  }
+
   onLoadRefsFormRight(obj){
     console.log(obj)
   }
@@ -558,6 +602,7 @@ export class Form extends React.Component{
         }
       }
     })
+    console.log(this.state);
   }
 
   render(){
@@ -566,7 +611,7 @@ export class Form extends React.Component{
         <form className="">
             <div className="row">
               <FormLeft initInput={this.state.ethernet_settings} onChange={this.onChangeEthernetSetting} onClickRadioUseIPAddress={this.onClickRadioUseIPAddress} onClickRadioDNSServer={this.onClickRadioDNSServer}/>
-              <FormRight initInput={this.state.wireless_settings}  onChange={this.onChangeWirelessSetting} onLoadRefsFormRight={this.onLoadRefsFormRight}/>
+              <FormRight initInput={this.state.wireless_settings}  onChange={this.onChangeWirelessSetting} onUpdateState={this.onUpdateState} onLoadRefsFormRight={this.onLoadRefsFormRight}/>
             </div>
 
             <div className="row">

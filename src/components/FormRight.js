@@ -13,7 +13,38 @@ export class FormRight extends React.Component{
   }
 
   onActiveSettingWifi(e){
+    if(e == 'active_wifi'){
+      this.enablewifi.checked = true;
+      if(this.enablewifi.checked){
+        this.wifiNetworkName.disabled = false;
+        this.enableWifiSecurity.disabled = false;
+
+        this.visibleRadioIpAddressWifiDefault.disabled = false;
+        this.visibleRadioIpAddressWifiUse.disabled = false;
+        this.visibleRadioIpAddressWifiDefault.checked = true;
+
+        this.visibleRadioDNSServerDefault.disabled = false;
+        this.visibleRadioDNSServerUse.disabled = false;
+        this.visibleRadioDNSServerDefault.checked = true;
+      }
+      return
+    } else if(e == "default_wifi"){
+        this.enablewifi.checked = false;
+
+        this.enableWifiSecurity.checked = false;
+
+        this.visibleRadioIpAddressWifiDefault.checked = false;
+        this.visibleRadioIpAddressWifiUse.checked = false;
+
+        this.visibleRadioDNSServerDefault.checked = false;
+        this.visibleRadioDNSServerUse.checked = false;
+
+        return
+    }
+
     if(e.target.checked){
+      this.props.onUpdateState("enablewifi_active");
+
       this.wifiNetworkName.disabled = false;
       this.enableWifiSecurity.disabled = false;
 
@@ -26,6 +57,8 @@ export class FormRight extends React.Component{
       this.visibleRadioDNSServerDefault.checked = true;
 
     } else{
+      this.props.onUpdateState("enablewifi_neactive");
+
       this.wifiNetworkName.disabled = true;
       this.enableWifiSecurity.disabled = true;
 
@@ -52,6 +85,13 @@ export class FormRight extends React.Component{
   }
 
   enableSecurityKey(e){
+    if(e == 'active_security'){
+      this.enableWifiSecurity.checked = true;
+      if(this.enableWifiSecurity.checked){
+        this.inputSecurityKey.disabled = false;
+      }
+      return
+    }
     if(e.target.checked){
       this.inputSecurityKey.disabled = false;
     } else{
@@ -61,6 +101,15 @@ export class FormRight extends React.Component{
   }
 
   onClickIpAddress(e){
+    if(e == 'active_wifiIpAddress'){
+      this.visibleRadioIpAddressWifiUse.checked = true;
+      if(this.visibleRadioIpAddressWifiUse.checked){
+        this.inputTextIpAddress.disabled = false;
+        this.inputTextSubnetMask.disabled = false;
+        this.inputTextDefaultGateaway.disabled = false;
+      }
+      return
+    }
     if(e.target.checked && e.target.id == 'ipaddresswifi2'){
       this.inputTextIpAddress.disabled = false;
       this.inputTextSubnetMask.disabled = false;
@@ -77,6 +126,14 @@ export class FormRight extends React.Component{
   }
 
   onClickActiveDNSServer(e){
+    if(e == 'active_wifiDNSServer'){
+      this.visibleRadioDNSServerUse.checked = true;
+      if(this.visibleRadioDNSServerUse.checked){
+        this.inputPreferredDNSServer.disabled = false;
+        this.inputAlternativeDNSServer.disabled = false;
+      }
+      return
+    }
     if(e.target.checked && e.target.id == 'servedswifi2'){
       this.inputPreferredDNSServer.disabled = false;
       this.inputAlternativeDNSServer.disabled = false;
@@ -94,7 +151,6 @@ export class FormRight extends React.Component{
   }
 
   componentDidMount(){
-
     let listRefsFormRight = {
       formRightwifiNetworkName: this.wifiNetworkName,
       formRightinputSecurityKey:this.inputSecurityKey,
@@ -104,7 +160,6 @@ export class FormRight extends React.Component{
       formRightinputPreferredDNSServer:this.inputPreferredDNSServer,
       formRightinputAlternativeDNSServer:this.inputAlternativeDNSServer
     }
-
     this.props.onLoadRefsFormRight(listRefsFormRight);
 
     this.enableWifiSecurity.disabled = true;
@@ -112,6 +167,40 @@ export class FormRight extends React.Component{
     this.visibleRadioIpAddressWifiUse.disabled = true;
     this.visibleRadioDNSServerDefault.disabled = true;
     this.visibleRadioDNSServerUse.disabled = true;
+
+    if(this.props.initInput.enablewifi){
+      console.log("LOL");
+      this.onActiveSettingWifi("active_wifi");
+    } else {
+      this.onActiveSettingWifi("default_wifi");
+    }
+
+    if(this.props.initInput.settings.enableSecurity.checkboxEnableSecurity){
+      this.enableSecurityKey("active_security");
+    }
+
+    if(!this.props.initInput.settings.wifiIpAddress.default){
+      this.onClickIpAddress("active_wifiIpAddress");
+    }
+
+    if(!this.props.initInput.settings.wifiDNSServer.default){
+      this.onClickActiveDNSServer("active_wifiDNSServer");
+    }
+
+    if(this.props.initInput.settings.networkName){
+      if(this.props.initInput.settings.networkName == 'networkname_0'){
+        this.wifiNetworkName.value = '';
+        return;
+      }
+      this.wifiNetworkName.value = this.props.initInput.settings.networkName;
+    }
+  }
+
+  componentDidUpdate(){
+
+    if(!this.props.initInput.enablewifi){
+      console.log("goose");
+    }
   }
 
   render(){
@@ -120,17 +209,17 @@ export class FormRight extends React.Component{
         <div className="title">Wireless Settings</div>
 
         <div className="custom-control custom-checkbox mb-3">
-          <input type="checkbox" className="custom-control-input" id="customControlValidation1" onClick={this.onActiveSettingWifi}/>
+          <input type="checkbox" className="custom-control-input" id="customControlValidation1" ref={el => this.enablewifi = el} onClick={this.onActiveSettingWifi}/>
           <label className="custom-control-label" for="customControlValidation1">Enable Wifi:</label>
         </div>
 
         <div className="text-right form-group">
           <label>Wireless Network Name: <span>*</span></label>
-          <select className="custom-select col-5 ml-3 mr-3" id="networkname" ref={el => this.wifiNetworkName = el} onChange={this.onChange} required disabled>
-            <option value="">Please select</option>
-            <option value="1">SSID 1</option>
-            <option value="2">SSID 2</option>
-            <option value="3">SSID 3</option>
+          <select className="custom-select col-5 ml-3 mr-3" id="networkname" value={this.props.initInput.settings.networkName} ref={el => this.wifiNetworkName = el} onChange={this.onChange} required disabled>
+            <option id="networkname_0" value="">Please select</option>
+            <option id="networkname_1" value="networkname_1">SSID 1</option>
+            <option id="networkname_2" value="networkname_2">SSID 2</option>
+            <option id="networkname_3" value="networkname_3">SSID 3</option>
           </select>
           <img src={refresh} className="refresh" disabled/>
         </div>
