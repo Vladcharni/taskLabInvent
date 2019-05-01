@@ -60,6 +60,12 @@ export class Form extends React.Component{
   }
 
   onClickRadioUseIPAddress(e,input1,input2,input3){
+    if(e == "default_false"){
+      input1.disabled = false;
+      input2.disabled = false;
+      input3.disabled = false;
+      return
+    }
     if(e.target.checked && e.target.id == "ipadress2"){
       input1.disabled = false;
       input2.disabled = false;
@@ -77,10 +83,16 @@ export class Form extends React.Component{
   }
 
   onClickRadioDNSServer(e,input1,input2){
+    if(e == "default_false"){
+      input1.disabled = false;
+      input2.disabled = false;
+      return
+    }
     if(e.target.checked && e.target.id == "serveds2"){
       input1.disabled = false;
       input2.disabled = false;
     } else {
+
       input1.disabled = true;
       input2.disabled = true;
 
@@ -90,10 +102,12 @@ export class Form extends React.Component{
   }
 
   onChangeEthernetSetting(e,setting){
+    let state_defaultIPAddress = this.state.ethernet_settings.ipAddress.default;
     let state_IpAddress = this.state.ethernet_settings.ipAddress.settingsIpAddress.ipaddress;
     let state_SubnetMask = this.state.ethernet_settings.ipAddress.settingsIpAddress.subnetMask;
     let state_DefaultGateway = this.state.ethernet_settings.ipAddress.settingsIpAddress.defaultGateway;
 
+    let state_defaultDNS  = this.state.ethernet_settings.serverDNS.default;
     let state_prefferredDNS = this.state.ethernet_settings.serverDNS.settingsDNS.prefferredDNS;
     let state_alternativedDNS = this.state.ethernet_settings.serverDNS.settingsDNS.alternativedDNS;
 
@@ -102,7 +116,7 @@ export class Form extends React.Component{
         this.setState({
           ethernet_settings:{
             ipAddress:{
-              default: false,
+              default: state_defaultIPAddress,
               settingsIpAddress:{
                 ipaddress: e.target.value,
                 subnetMask: state_SubnetMask,
@@ -110,7 +124,7 @@ export class Form extends React.Component{
               }
             },
             serverDNS:{
-              default: false,
+              default: state_defaultDNS,
               settingsDNS:{
                 prefferredDNS: state_prefferredDNS,
                 alternativedDNS: state_alternativedDNS
@@ -122,7 +136,7 @@ export class Form extends React.Component{
         this.setState({
           ethernet_settings:{
             ipAddress:{
-              default: false,
+              default: state_defaultIPAddress,
               settingsIpAddress:{
                 ipaddress: state_IpAddress,
                 subnetMask: e.target.value,
@@ -130,7 +144,7 @@ export class Form extends React.Component{
               }
             },
             serverDNS:{
-              default: false,
+              default: state_defaultDNS,
               settingsDNS:{
                 prefferredDNS: state_prefferredDNS,
                 alternativedDNS: state_alternativedDNS
@@ -142,7 +156,7 @@ export class Form extends React.Component{
         this.setState({
           ethernet_settings:{
             ipAddress:{
-              default: false,
+              default: state_defaultIPAddress,
               settingsIpAddress:{
                 ipaddress: state_IpAddress,
                 subnetMask: state_SubnetMask,
@@ -150,7 +164,7 @@ export class Form extends React.Component{
               }
             },
             serverDNS:{
-              default: false,
+              default: state_defaultDNS,
               settingsDNS:{
                 prefferredDNS: state_prefferredDNS,
                 alternativedDNS: state_alternativedDNS
@@ -166,7 +180,7 @@ export class Form extends React.Component{
         this.setState({
           ethernet_settings:{
             ipAddress:{
-              default: false,
+              default: state_defaultIPAddress,
               settingsIpAddress:{
                 ipaddress: state_IpAddress,
                 subnetMask: state_SubnetMask,
@@ -174,7 +188,7 @@ export class Form extends React.Component{
               }
             },
             serverDNS:{
-              default: false,
+              default: state_defaultDNS,
               settingsDNS:{
                 prefferredDNS: e.target.value,
                 alternativedDNS: state_alternativedDNS
@@ -186,7 +200,7 @@ export class Form extends React.Component{
         this.setState({
           ethernet_settings:{
             ipAddress:{
-              default: false,
+              default: state_defaultIPAddress,
               settingsIpAddress:{
                 ipaddress: state_IpAddress,
                 subnetMask: state_SubnetMask,
@@ -194,7 +208,7 @@ export class Form extends React.Component{
               }
             },
             serverDNS:{
-              default: false,
+              default: state_defaultDNS,
               settingsDNS:{
                 prefferredDNS: state_prefferredDNS,
                 alternativedDNS: e.target.value
@@ -207,6 +221,11 @@ export class Form extends React.Component{
   }
 
   onChangeWirelessSetting(e){
+    let state_enablewifi = this.state.wireless_settings.enablewifi;
+    let state_checkboxEnableSecurity = this.state.wireless_settings.settings.enableSecurity.checkboxEnableSecurity;
+    let state_defaultIPAddress = this.state.wireless_settings.settings.wifiIpAddress.default;
+    let state_state_defaultDNS = this.state.wireless_settings.settings.wifiDNSServer.default;
+
     let state_networkName = this.state.wireless_settings.settings.networkName;
     let state_inputSecurityKey = this.state.wireless_settings.settings.enableSecurity.inputSecurityKey;
     let state_ipaddress = this.state.wireless_settings.settings.wifiIpAddress.settingsIpAddress.ipaddress;
@@ -219,15 +238,15 @@ export class Form extends React.Component{
     if(e.target.id == 'networkname' && e.target.value != ''){
       this.setState({
         wireless_settings:{
-          enablewifi: false,
+          enablewifi: state_enablewifi,
           settings:{
             networkName: e.target.value,
             enableSecurity:{
-              checkboxEnableSecurity: false,
+              checkboxEnableSecurity: state_checkboxEnableSecurity,
               inputSecurityKey: state_inputSecurityKey
             },
             wifiIpAddress:{
-              default: true,
+              default: state_defaultIPAddress,
               settingsIpAddress:{
                 ipaddress: state_ipaddress,
                 subnetMask: state_subnetMask,
@@ -235,7 +254,7 @@ export class Form extends React.Component{
               }
             },
             wifiDNSServer:{
-              default: true,
+              default: state_state_defaultDNS,
               settingsDNS:{
                 prefferredDNS: state_prefferredDNS,
                 alternativedDNS: state_alternativedDNS
@@ -247,15 +266,15 @@ export class Form extends React.Component{
     } else if(e.target.id == 'securitykey'){
       this.setState({
         wireless_settings:{
-          enablewifi: false,
+          enablewifi: state_enablewifi,
           settings:{
             networkName: state_networkName,
             enableSecurity:{
-              checkboxEnableSecurity: false,
+              checkboxEnableSecurity: state_checkboxEnableSecurity,
               inputSecurityKey: e.target.value
             },
             wifiIpAddress:{
-              default: true,
+              default: state_defaultIPAddress,
               settingsIpAddress:{
                 ipaddress: state_ipaddress,
                 subnetMask: state_subnetMask,
@@ -263,7 +282,7 @@ export class Form extends React.Component{
               }
             },
             wifiDNSServer:{
-              default: true,
+              default: state_state_defaultDNS,
               settingsDNS:{
                 prefferredDNS: state_prefferredDNS,
                 alternativedDNS: state_alternativedDNS
@@ -277,15 +296,15 @@ export class Form extends React.Component{
         case 'ipSetting1':
           this.setState({
             wireless_settings:{
-              enablewifi: false,
+              enablewifi: state_enablewifi,
               settings:{
                 networkName: state_networkName,
                 enableSecurity:{
-                  checkboxEnableSecurity: false,
+                  checkboxEnableSecurity: state_checkboxEnableSecurity,
                   inputSecurityKey: state_inputSecurityKey
                 },
                 wifiIpAddress:{
-                  default: true,
+                  default: state_defaultIPAddress,
                   settingsIpAddress:{
                     ipaddress: e.target.value,
                     subnetMask: state_subnetMask,
@@ -293,7 +312,7 @@ export class Form extends React.Component{
                   }
                 },
                 wifiDNSServer:{
-                  default: true,
+                  default: state_state_defaultDNS,
                   settingsDNS:{
                     prefferredDNS: state_prefferredDNS,
                     alternativedDNS: state_alternativedDNS
@@ -306,15 +325,15 @@ export class Form extends React.Component{
         case 'ipSetting2':
           this.setState({
             wireless_settings:{
-              enablewifi: false,
+              enablewifi: state_enablewifi,
               settings:{
                 networkName: state_networkName,
                 enableSecurity:{
-                  checkboxEnableSecurity: false,
+                  checkboxEnableSecurity: state_checkboxEnableSecurity,
                   inputSecurityKey: state_inputSecurityKey
                 },
                 wifiIpAddress:{
-                  default: true,
+                  default: state_defaultIPAddress,
                   settingsIpAddress:{
                     ipaddress: state_ipaddress,
                     subnetMask: e.target.value,
@@ -322,7 +341,7 @@ export class Form extends React.Component{
                   }
                 },
                 wifiDNSServer:{
-                  default: true,
+                  default: state_state_defaultDNS,
                   settingsDNS:{
                     prefferredDNS: state_prefferredDNS,
                     alternativedDNS: state_alternativedDNS
@@ -335,15 +354,15 @@ export class Form extends React.Component{
         case 'ipSetting3':
           this.setState({
             wireless_settings:{
-              enablewifi: false,
+              enablewifi: state_enablewifi,
               settings:{
                 networkName: state_networkName,
                 enableSecurity:{
-                  checkboxEnableSecurity: false,
+                  checkboxEnableSecurity: state_checkboxEnableSecurity,
                   inputSecurityKey: state_inputSecurityKey
                 },
                 wifiIpAddress:{
-                  default: true,
+                  default: state_defaultIPAddress,
                   settingsIpAddress:{
                     ipaddress: state_ipaddress,
                     subnetMask: state_subnetMask,
@@ -351,7 +370,7 @@ export class Form extends React.Component{
                   }
                 },
                 wifiDNSServer:{
-                  default: true,
+                  default: state_state_defaultDNS,
                   settingsDNS:{
                     prefferredDNS: state_prefferredDNS,
                     alternativedDNS: state_alternativedDNS
@@ -369,15 +388,15 @@ export class Form extends React.Component{
         case "serverDNSSetting1":
           this.setState({
             wireless_settings:{
-              enablewifi: false,
+              enablewifi: state_enablewifi,
               settings:{
                 networkName: state_networkName,
                 enableSecurity:{
-                  checkboxEnableSecurity: false,
+                  checkboxEnableSecurity: state_checkboxEnableSecurity,
                   inputSecurityKey: state_inputSecurityKey
                 },
                 wifiIpAddress:{
-                  default: true,
+                  default: state_defaultIPAddress,
                   settingsIpAddress:{
                     ipaddress: state_ipaddress,
                     subnetMask: state_subnetMask,
@@ -385,7 +404,7 @@ export class Form extends React.Component{
                   }
                 },
                 wifiDNSServer:{
-                  default: true,
+                  default: state_state_defaultDNS,
                   settingsDNS:{
                     prefferredDNS: e.target.value,
                     alternativedDNS: state_alternativedDNS
@@ -398,15 +417,15 @@ export class Form extends React.Component{
         case "serverDNSSetting2":
           this.setState({
             wireless_settings:{
-              enablewifi: false,
+              enablewifi: state_enablewifi,
               settings:{
                 networkName: state_networkName,
                 enableSecurity:{
-                  checkboxEnableSecurity: false,
+                  checkboxEnableSecurity: state_checkboxEnableSecurity,
                   inputSecurityKey: state_inputSecurityKey
                 },
                 wifiIpAddress:{
-                  default: true,
+                  default: state_defaultIPAddress,
                   settingsIpAddress:{
                     ipaddress: state_ipaddress,
                     subnetMask: state_subnetMask,
@@ -414,7 +433,7 @@ export class Form extends React.Component{
                   }
                 },
                 wifiDNSServer:{
-                  default: true,
+                  default: state_state_defaultDNS,
                   settingsDNS:{
                     prefferredDNS: state_prefferredDNS,
                     alternativedDNS: e.target.value
@@ -436,6 +455,57 @@ export class Form extends React.Component{
 
   componentDidUpdate(){
     console.log(this.state);
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:8080/getsettings").then(response => response.json())
+    .then(jsonResponse => {
+      this.setState({
+        wireless_settings:{
+          enablewifi: jsonResponse.wireless_settings.enablewifi,
+          settings:{
+            networkName: jsonResponse.wireless_settings.settings.networkName,
+            enableSecurity:{
+              checkboxEnableSecurity: jsonResponse.wireless_settings.settings.enableSecurity.checkboxEnableSecurity,
+              inputSecurityKey: jsonResponse.wireless_settings.settings.enableSecurity.inputSecurityKey
+            },
+            wifiIpAddress:{
+              default: jsonResponse.wireless_settings.settings.wifiIpAddress.default,
+              settingsIpAddress:{
+                ipaddress: jsonResponse.wireless_settings.settings.wifiIpAddress.settingsIpAddress.ipaddress,
+                subnetMask: jsonResponse.wireless_settings.settings.wifiIpAddress.settingsIpAddress.subnetMask,
+                defaultGateway: jsonResponse.wireless_settings.settings.wifiIpAddress.settingsIpAddress.defaultGateway
+              }
+            },
+            wifiDNSServer:{
+              default: jsonResponse.wireless_settings.settings.wifiDNSServer.default,
+              settingsDNS:{
+                prefferredDNS: jsonResponse.wireless_settings.settings.wifiDNSServer.settingsDNS.prefferredDNS,
+                alternativedDNS: jsonResponse.wireless_settings.settings.wifiDNSServer.settingsDNS.alternativedDNS
+              }
+            }
+          }
+        },
+        ethernet_settings:{
+          ipAddress:{
+            default:  jsonResponse.ethernet_settings.ipAddress.default,
+            settingsIpAddress:{
+              ipaddress: jsonResponse.ethernet_settings.ipAddress.settingsIpAddress.ipaddress,
+              subnetMask: jsonResponse.ethernet_settings.ipAddress.settingsIpAddress.subnetMask,
+              defaultGateway: jsonResponse.ethernet_settings.ipAddress.settingsIpAddress.defaultGateway
+            }
+          },
+          serverDNS:{
+            default: jsonResponse.ethernet_settings.serverDNS.default,
+            settingsDNS:{
+              prefferredDNS:  jsonResponse.ethernet_settings.serverDNS.settingsDNS.prefferredDNS,
+              alternativedDNS: jsonResponse.ethernet_settings.serverDNS.settingsDNS.alternativedDNS
+            }
+          }
+        }
+      })
+    })
+    .catch(err => console.log(err.message));
   }
 
   onSave(){
