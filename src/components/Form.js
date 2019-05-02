@@ -724,7 +724,7 @@ export class Form extends React.Component{
               inputSecurityKey: jsonResponse.wireless_settings.settings.enableSecurity.inputSecurityKey
             },
             wifiIpAddress:{
-              default: jsonResponse.wireless_settings.settings.wifiIpAddress.default,
+              default: jsonResponse.wireless_settings.settings.wifiIpAddress.default || true,
               settingsIpAddress:{
                 ipaddress: jsonResponse.wireless_settings.settings.wifiIpAddress.settingsIpAddress.ipaddress,
                 subnetMask: jsonResponse.wireless_settings.settings.wifiIpAddress.settingsIpAddress.subnetMask,
@@ -732,7 +732,7 @@ export class Form extends React.Component{
               }
             },
             wifiDNSServer:{
-              default: jsonResponse.wireless_settings.settings.wifiDNSServer.default,
+              default: jsonResponse.wireless_settings.settings.wifiDNSServer.default || true,
               settingsDNS:{
                 prefferredDNS: jsonResponse.wireless_settings.settings.wifiDNSServer.settingsDNS.prefferredDNS,
                 alternativedDNS: jsonResponse.wireless_settings.settings.wifiDNSServer.settingsDNS.alternativedDNS
@@ -767,11 +767,9 @@ export class Form extends React.Component{
     fetch("http://localhost:8080?getlistwifi=list")
     .then(response => response.json())
     .then(jsonResponse => {
-      console.log(jsonResponse);
       this.setState({
         listWirelessNetwork: jsonResponse
       })
-      console.log(this.state.listWirelessNetwork)
     })
   }
 
@@ -782,47 +780,39 @@ export class Form extends React.Component{
     if(!this.state.ethernet_settings.ipAddress.default){
       if(!this.state.ethernet_settings.ipAddress.settingsIpAddress.ipaddress){
         send_TRUTH = false;
-        console.log("1111111.ipAddress.settingsIpAddress.ipaddress");
       }
       if(!this.state.ethernet_settings.ipAddress.settingsIpAddress.subnetMask){
         send_TRUTH = false;
-        console.log("22222222222.ipAddress.settingsIpAddress.subnetMask");
       }
     }
 
     if(!this.state.ethernet_settings.serverDNS.default){
       if(!this.state.ethernet_settings.serverDNS.settingsDNS.prefferredDNS){
         send_TRUTH = false;
-        console.log("33333333333._settings.serverDNS.settingsDNS.prefferredDNS");
       }
     }
 
     if(this.state.wireless_settings.enablewifi){
       if(!this.state.wireless_settings.settings.networkName){
         send_TRUTH = false;
-        console.log("44444444.his.state.wireless_settings.settings.networkName");
       }
 
       if(this.state.wireless_settings.settings.enableSecurity.checkboxEnableSecurity && !this.state.wireless_settings.settings.enableSecurity.inputSecurityKey){
         send_TRUTH = false;
-        console.log("55555555555.his.state.wireless_settings.settings.networkName");
       }
 
       if(!this.state.wireless_settings.settings.wifiIpAddress.default){
         if(!this.state.wireless_settings.settings.wifiIpAddress.settingsIpAddress.ipaddress){
           send_TRUTH = false;
-          console.log("66666666666666.his.state.wireless_settings.settings.networkName");
         }
         if(!this.state.wireless_settings.settings.wifiIpAddress.settingsIpAddress.subnetMask){
           send_TRUTH = false;
-          console.log("77777777777777.his.state.wireless_settings.settings.networkName");
         }
       }
 
       if(!this.state.wireless_settings.settings.wifiDNSServer.default){
         if(!this.state.wireless_settings.settings.wifiDNSServer.settingsDNS.prefferredDNS){
           send_TRUTH = false;
-          console.log("88888888888888this.state.wireless_settings.settings.wifiIpAddress.settingsDNS.prefferredDNS");
         }
       }
     }
@@ -888,7 +878,6 @@ export class Form extends React.Component{
         body: "obj=" + JSON.stringify(data)
       })
       .then(function(response){
-        console.log(response);
       })
     }
   }
