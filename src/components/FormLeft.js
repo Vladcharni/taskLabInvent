@@ -12,16 +12,26 @@ export class FormLeft extends React.Component{
   sendClickIpAddress(e){
     if(e == "default_false"){
       this.props.onClickRadioUseIPAddress(e, this.inputTextIpAddress ,this.inputTextSubnetMask , this.inputTextDefaultGateaway)
+      return
+    }
+
+    if(e.target.id == "ipadress1"){
+      this.props.onClickRadioUseIPAddress(e.target.id, this.inputTextIpAddress ,this.inputTextSubnetMask , this.inputTextDefaultGateaway)
     } else {
-      this.props.onClickRadioUseIPAddress(e, this.inputTextIpAddress ,this.inputTextSubnetMask , this.inputTextDefaultGateaway)
+      this.props.onClickRadioUseIPAddress(e.target.id, this.inputTextIpAddress ,this.inputTextSubnetMask , this.inputTextDefaultGateaway,this.inputPreferredDNSServer)
     }
   }
 
   sendClickDNSServer(e){
     if(e == "default_false"){
       this.props.onClickRadioDNSServer(e, this.inputPreferredDNSServer ,this.inputAlternativeDNSServer);
+      return
+    }
+
+    if(e.target.id == "serveds1"){
+      this.props.onClickRadioDNSServer(e.target.id, this.inputPreferredDNSServer ,this.inputAlternativeDNSServer);
     } else {
-      this.props.onClickRadioDNSServer(e, this.inputPreferredDNSServer ,this.inputAlternativeDNSServer);
+      this.props.onClickRadioDNSServer(e.target.id, this.inputPreferredDNSServer ,this.inputAlternativeDNSServer);
     }
   }
 
@@ -37,6 +47,11 @@ export class FormLeft extends React.Component{
   componentDidUpdate(){
     if(this.props.initInput.ipAddress.default){
       this.initRadio1.checked = true;
+
+      this.inputTextIpAddress.disabled = true;
+      this.inputTextSubnetMask.disabled = true;
+      this.inputTextDefaultGateaway.disabled = true;
+
     } else {
       this.initRadio2.checked = true;
       this.sendClickIpAddress("default_false");
@@ -44,16 +59,19 @@ export class FormLeft extends React.Component{
 
     if(this.props.initInput.serverDNS.default){
       this.initRadioDSServer1.checked = true;
+
+      this.inputPreferredDNSServer.disabled = true;
+      this.inputAlternativeDNSServer.disabled = true;
     } else {
       this.initRadioDSServer2.checked = true;
       this.sendClickDNSServer("default_false");
     }
   }
 
+
   render(){
     return (
       <div className="col-sm-6 text-left border">
-
         <div className="title">Ethernet Settings</div>
         <div>
           <div className="custom-control custom-radio">
@@ -68,11 +86,11 @@ export class FormLeft extends React.Component{
           <div className="">
             <div className="col-12 text-right m-2">
               <label className="mr-3">IP address: <span>*</span></label>
-              <input type="text" className="form-control col-5" id="ipSetting1" value={this.props.initInput.ipAddress.settingsIpAddress.ipaddress} ref={el => this.inputTextIpAddress = el} onChange={this.onChange} disabled/>
+              <input type="text" className="form-control col-5" id="ipSetting1" value={this.props.initInput.ipAddress.settingsIpAddress.ipaddress} ref={el => this.inputTextIpAddress = el} onChange={this.onChange} required disabled/>
             </div>
             <div className="col-12 text-right m-2">
               <label className="mr-3">Subnet Mask: <span>*</span></label>
-              <input type="text" className="form-control col-5" id="ipSetting2" value={this.props.initInput.ipAddress.settingsIpAddress.subnetMask} ref={el => this.inputTextSubnetMask = el} onChange={this.onChange} disabled/>
+              <input type="text" className="form-control col-5" id="ipSetting2" value={this.props.initInput.ipAddress.settingsIpAddress.subnetMask} ref={el => this.inputTextSubnetMask = el} onChange={this.onChange} required disabled/>
             </div>
             <div className="col-12 text-right m-2">
               <label className="mr-3">Default Gateway: </label>
@@ -94,7 +112,7 @@ export class FormLeft extends React.Component{
           <div className="">
             <div className="col-12 text-right m-2">
               <label className="mr-3">Preferred DNS server: <span>*</span></label>
-              <input type="text" className="form-control col-5" id="serverDNSSetting1" value={this.props.initInput.serverDNS.settingsDNS.prefferredDNS} ref={el => this.inputPreferredDNSServer = el} onChange={this.onChange} disabled />
+              <input type="text" className="form-control col-5" id="serverDNSSetting1" value={this.props.initInput.serverDNS.settingsDNS.prefferredDNS} ref={el => this.inputPreferredDNSServer = el} onChange={this.onChange} required disabled />
             </div>
             <div className="col-12 text-right m-2">
               <label className="mr-3">Alternative DNS server: </label>

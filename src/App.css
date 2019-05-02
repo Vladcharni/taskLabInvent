@@ -65,12 +65,16 @@
   cursor:pointer;
 }
 .refresh{
-  animation: refreshicon infinite 5s linear;
+  animation: refreshicon infinite 3s linear;
 }
 
 span{
   color: red;
   font-size: 18px;
+}
+
+.red{
+  border: 1px solid red;
 }
 
 @keyframes refreshicon {
