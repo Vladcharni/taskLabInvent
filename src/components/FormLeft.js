@@ -76,7 +76,7 @@ export class FormLeft extends React.Component{
         <div>
           <div className="custom-control custom-radio">
             <input type="radio" id="ipadress1" name="ipadress" className="custom-control-input" ref={el => this.initRadio1 = el} onClick={this.sendClickIpAddress}/>
-            <label className="custom-control-label" for="ipadress1">Obtain DNS server address automatically</label>
+            <label className="custom-control-label" for="ipadress1">Obtain an IP address automatically (DCHP/BootP)</label>
           </div>
           <div className="custom-control custom-radio">
             <input type="radio" id="ipadress2" name="ipadress" className="custom-control-input" ref={el => this.initRadio2 = el} onClick={this.sendClickIpAddress}/>
