@@ -124,7 +124,7 @@ export class FormRight extends React.Component{
             {
               this.props.listWirelessNetwork.map((item,index) =>{
                 let indexName = "networkname_" + (index + 1);
-                return <option key={indexName} id={indexName} value={indexName.name}>{item.name}</option>
+                return <option key={indexName} id={indexName} value={item.name}>{item.name}</option>
               })
             }
           </select>
@@ -145,7 +145,7 @@ export class FormRight extends React.Component{
         <div>
           <div className="custom-control custom-radio">
             <input type="radio" id="ipaddresswifi1" name="ipaddresswifi" className="custom-control-input" ref={el => this.visibleRadioIpAddressWifiDefault = el} onChange={this.onChange} />
-            <label className="custom-control-label" for="ipaddresswifi1">Obtain DNS server address automatically</label>
+            <label className="custom-control-label" for="ipaddresswifi1">Obtain an IP address automatically (DCHP/BootP)</label>
           </div>
           <div className="custom-control custom-radio">
             <input type="radio" id="ipaddresswifi2" name="ipaddresswifi" className="custom-control-input" ref={el => this.visibleRadioIpAddressWifiUse = el} onChange={this.onChange}  />
